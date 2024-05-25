@@ -98,7 +98,7 @@ const DonorDetails = ({ params }: TParams) => {
                         <Typography>.experience</Typography>
                     </StyledInformationBox>
                 </Stack> */}
-                <Button LinkComponent={Link} href="/dashboard/user/blood-request" sx={{mt: 5, width: "40%"}}>Request Blood</Button>
+                <Button LinkComponent={Link} href={`/dashboard/user/blood-request/${donorInfo.id}`} sx={{mt: 5, width: "40%"}}>Request Blood</Button>
             </Container>
             <Footer />
         </>

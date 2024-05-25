@@ -1,3 +1,4 @@
+"use client"
 import { baseApi } from './baseApi';
 import { tagTypes } from '../tag-types';
 
@@ -30,7 +31,16 @@ export const donationApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.doctorSchedule],
         }),
+        getMyRequestDonor: build.query({
+            query: () => {
+                return {
+                    url: '/donation-request',
+                    method: 'GET'
+                };
+            },
+            providesTags: [tagTypes.user],
+        }),
     }),
 });
 
-export const { useGetAllDonorListQuery, useGetIdByDonorQuery, useCreateDonorRequestMutation } = donationApi;
+export const { useGetAllDonorListQuery, useGetIdByDonorQuery, useCreateDonorRequestMutation, useGetMyRequestDonorQuery } = donationApi;

@@ -9,6 +9,12 @@ import { useGetMYProfileQuery } from "@/redux/api/myProfile";
 import { useCreateDonorRequestMutation } from "@/redux/api/donationApi";
 import { toast } from "sonner";
 
+type TParams = {
+    params: {
+        donorRequest: string
+    }
+}
+
 export const validationSchema = z.object({
     phoneNumber: z.string().min(11, "Must be 11 characters"),
     hospitalName: z.string({ required_error: "Please enter your hospitalName!" }),
@@ -25,18 +31,18 @@ export const defaultValue = {
     dateOfDonation: ""
 }
 
-const BloodRequest = () => {
+const BloodRequest = ({ params }: TParams) => {
     const { data: myProfileData, isLoading } = useGetMYProfileQuery({});
     const [createDonorRequest] = useCreateDonorRequestMutation();
-
+    
     if (isLoading) {
         return <Typography variant="h1" textAlign="center">Loading...</Typography>
     }
 
     const handleBloodRequest = async (values: FieldValues) => {
-        values.donorId = myProfileData?.id;
+        values.donorId = params.donorRequest;
         const res = await createDonorRequest(values);
-        if("data" in res && res?.data?.id){
+        if ("data" in res && res?.data?.id) {
             toast.success("Blood Donor Request Successfully!");
         }
     }
