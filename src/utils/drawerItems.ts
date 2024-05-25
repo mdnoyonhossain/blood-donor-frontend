@@ -3,11 +3,7 @@ import { DrawerItem, UserRole } from "@/types";
 
 //icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import GroupIcon from "@mui/icons-material/Group";
-import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import TryIcon from "@mui/icons-material/Try";
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 
@@ -51,10 +47,15 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
                     icon: DashboardIcon,
                 },
                 {
-                    title: "Schedules",
-                    path: `${role}/schedules`,
+                    title: "Blood Request",
+                    path: `${role}/blood-request`,
                     icon: CalendarMonthIcon,
-                }
+                },
+                {
+                    title: "My Blood Request List",
+                    path: `${role}/blood-request-list`,
+                    icon: CalendarMonthIcon,
+                },
             );
             break;
 

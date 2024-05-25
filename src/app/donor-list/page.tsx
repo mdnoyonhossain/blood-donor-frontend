@@ -12,12 +12,33 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import SearchBloodDonor from "@/components/UI/HomePage/SearchBloodDonor/SearchBloodDonor";
 import { useGetAllDonorListQuery } from "@/redux/api/donationApi";
-import { Button } from "@mui/material";
+import { Button, MenuItem, Stack, TextField } from "@mui/material";
+import { BloodType } from "@/types";
+import { FieldValues, useForm } from "react-hook-form";
+import Link from "next/link";
 
 const DonorList = () => {
-    const { data: donorLists, isLoading } = useGetAllDonorListQuery({});
-    if(isLoading){
+    const { handleSubmit, register } = useForm();
+    const query: any = {};
+
+    const [bloodType, setBloodType] = React.useState("");
+    const [location, setLocation] = React.useState("");
+    const [availability, setAvailability] = React.useState("");
+
+    query["bloodType"] = bloodType;
+    query["location"] = location;
+    query["availability"] = availability;
+
+    const { data: donorLists, isLoading } = useGetAllDonorListQuery({ ...query });
+
+    if (isLoading) {
         return <Typography variant="h1" textAlign="center">Loading...</Typography>
+    }
+
+    const handleSearchDonoList = (values: FieldValues) => {
+        setBloodType(values.bloodType);
+        setLocation(values.location);
+        setAvailability(values.availability);
     }
 
     return (
@@ -42,7 +63,73 @@ const DonorList = () => {
                         mb: -5
                     }}
                 >
-                    <SearchBloodDonor />
+                    <Box>
+                        <Container
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                pb: 10,
+                            }}
+                        >
+                            <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '100%' }, alignItems: "center" }}>
+                                <Typography variant="h4" component="h1" fontWeight={600} sx={{ textAlign: "center", mb: -2 }}>
+                                    Search Blood Donor
+                                </Typography>
+                                <form onSubmit={handleSubmit(handleSearchDonoList)}>
+                                    <Stack
+                                        direction={{ xs: 'column', sm: 'row' }}
+                                        alignSelf="center"
+                                        alignItems="center"
+                                        spacing={1}
+                                        useFlexGap
+                                        sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
+                                    >
+                                        <Grid container spacing={2} my={1}>
+                                            <Grid item md={3}>
+                                                <TextField
+                                                    {...register("bloodType")}
+                                                    size="small"
+                                                    select
+                                                    label="Blood Type"
+                                                    fullWidth
+                                                >
+                                                    {BloodType.map((name) => (
+                                                        <MenuItem key={name} value={name}>
+                                                            {name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </TextField>
+                                            </Grid>
+                                            <Grid item md={3}>
+                                                <TextField
+                                                    {...register('location')}
+                                                    fullWidth
+                                                    size="small"
+                                                    label="Location"
+                                                    variant="outlined"
+                                                    placeholder="Location"
+                                                />
+                                            </Grid>
+                                            <Grid item md={3}>
+                                                <TextField
+                                                    {...register('availability')}
+                                                    fullWidth
+                                                    size="small"
+                                                    label="Availability"
+                                                    variant="outlined"
+                                                    placeholder="Availability"
+                                                />
+                                            </Grid>
+                                            <Grid item md={3}>
+                                                <Button type="submit">Search</Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Stack>
+                                </form>
+                            </Stack>
+                        </Container>
+                    </Box>
                 </Box>
                 <Grid container spacing={2}>
                     {donorLists?.map((donorInfo: any) => (
@@ -89,11 +176,11 @@ const DonorList = () => {
                                     }}
                                 >
                                     <CardHeader
-                                        avatar={<Avatar alt={donorInfo.name} src={donorInfo.name} />}
+                                        avatar={<Avatar alt={donorInfo?.name} src={donorInfo?.name} />}
                                     />
                                     <Grid container spacing={2} my={1} textAlign={"right"}>
                                         <Grid item md={12} >
-                                            <Button color="info">View Donor Details</Button>
+                                            <Button LinkComponent={Link} href={`/donor-list/donor-details/${donorInfo.id}`} color="info">View Donor Details</Button>
                                         </Grid>
                                     </Grid>
                                 </Box>

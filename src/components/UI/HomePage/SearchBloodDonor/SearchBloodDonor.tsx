@@ -10,12 +10,13 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { FieldValues, useForm } from 'react-hook-form';
 import { BloodType } from '@/types';
+import { useGetAllDonorListQuery } from '@/redux/api/donationApi';
 
 const SearchBloodDonor = () => {
     const { handleSubmit, register } = useForm();
 
     const handleSearchDonoList = (values: FieldValues) => {
-        console.log(values);
+        console.log(values.bloodType);
     }
 
     return (
