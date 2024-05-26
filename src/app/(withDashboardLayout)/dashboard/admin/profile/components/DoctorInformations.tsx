@@ -11,48 +11,45 @@ const StyledInformationBox = styled(Box)(({ theme }) => ({
 }));
 
 const DoctorInformations = ({ data }: any) => {
+    console.log(data);
     return (
         <>
             <Typography variant='h5' color='primary.main' mb={2}>Personal Information</Typography>
             <Stack direction={{ xs: 'column', md: 'row' }} gap={2} flexWrap={'wrap'} >
                 <StyledInformationBox>
-                    <Typography color='secondary' variant='caption'>Role</Typography>
+                    <Typography color='primary' variant='caption'>Role</Typography>
                     <Typography>{data?.role}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography color='secondary' variant='caption'>Name</Typography>
+                    <Typography color='primary' variant='caption'>Name</Typography>
                     <Typography>{data?.name}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography color='secondary' variant='caption'>Email</Typography>
+                    <Typography color='primary' variant='caption'>Email</Typography>
                     <Typography>{data?.email}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography color='secondary' variant='caption'>Gender</Typography>
-                    <Typography>{data?.gender}</Typography>
+                    <Typography color='primary' variant='caption'>Blood Type</Typography>
+                    <Typography>{data?.bloodType}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Designation</Typography>
-                    <Typography>{data?.designation}</Typography>
-                </StyledInformationBox>
-            </Stack>
-
-            <Typography variant='h5' my={2} color={'primary.main'}>Professional Information</Typography>
-            <Stack direction={{ xs: 'column', md: 'row' }} flexWrap={'wrap'} gap={2}>
-                <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Anointment Fee</Typography>
-                    <Typography>{data?.apointmentFee}</Typography>
+                    <Typography variant='caption' color='primary'>location</Typography>
+                    <Typography>{data?.location}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Qualification</Typography>
-                    <Typography>{data?.qualification}</Typography>
+                    <Typography variant='caption' color='primary'>Bio</Typography>
+                    <Typography>{data?.userProfile?.bio}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Current Working Place</Typography>
-                    <Typography>{data?.currentWorkingPlace}</Typography>
+                    <Typography variant='caption' color='primary'>Age</Typography>
+                    <Typography>{data?.userProfile?.age}</Typography>
                 </StyledInformationBox>
                 <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Joined</Typography>
+                    <Typography variant='caption' color='primary'>Last Donation Date</Typography>
+                    <Typography>{data?.userProfile?.lastDonationDate}</Typography>
+                </StyledInformationBox>
+                <StyledInformationBox>
+                    <Typography variant='caption' color='primary'>Joined</Typography>
                     <Typography>
                         {data ? new Date(data.createdAt).toLocaleDateString('en-US', {
                                 month: '2-digit',
@@ -62,19 +59,7 @@ const DoctorInformations = ({ data }: any) => {
                             : null}
                     </Typography>
                 </StyledInformationBox>
-                <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Current Status</Typography>
-                    <Typography>{data?.status}</Typography>
-                </StyledInformationBox>
-                <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>Average Rating</Typography>
-                    <Typography>{data?.averageRating}</Typography>
-                </StyledInformationBox>
-                <StyledInformationBox>
-                    <Typography variant='caption' color='secondary'>experience</Typography>
-                    <Typography>{data?.experience}</Typography>
-                </StyledInformationBox>
-            </Stack>
+            </Stack>            
         </>
     );
 };

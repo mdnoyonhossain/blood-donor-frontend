@@ -40,7 +40,21 @@ export const donationApi = baseApi.injectEndpoints({
             },
             providesTags: [tagTypes.user],
         }),
+        updateDonorStatus: build.mutation({
+            query: (data) => ({
+                url: `/donation-request/${data.id}`,
+                method: "PUT",
+                data: data
+            }),
+            invalidatesTags: [tagTypes.doctor, tagTypes.user]
+        }),
     }),
 });
 
-export const { useGetAllDonorListQuery, useGetIdByDonorQuery, useCreateDonorRequestMutation, useGetMyRequestDonorQuery } = donationApi;
+export const {
+    useGetAllDonorListQuery,
+    useGetIdByDonorQuery,
+    useCreateDonorRequestMutation,
+    useGetMyRequestDonorQuery,
+    useUpdateDonorStatusMutation
+} = donationApi;

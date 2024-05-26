@@ -11,7 +11,7 @@ const BloodRequestReceived = () => {
     if (isLoading) {
         return <Typography variant="h1" textAlign="center">Loading...</Typography>
     }
-    
+    console.log(myDonorLists);
     const columns: GridColDef[] = [
         {
             field: "donor.name", // Change field to donor.name
@@ -45,14 +45,14 @@ const BloodRequestReceived = () => {
         },
         {
             field: "action",
-            headerName: "Action",
+            headerName: "Status Updated",
             flex: 1,
             headerAlign: "center",
             align: "center",
             renderCell: ({ row }) => {
                 return (
                     <Box>
-                        <Link href={`/dashboard/user/changeDonorStatus/${row.id}`}>
+                        <Link href={`/dashboard/user/blood-request-received/editstatus/${row.id}`}>
                             <IconButton aria-label="delete">
                                 <EditIcon />
                             </IconButton>
@@ -62,31 +62,6 @@ const BloodRequestReceived = () => {
             }
         }
     ];
-
-    // Conditionally add a column based on the requestStatus
-    if (myDonorLists.some((row: any) => row.requestStatus === "APPROVED")) {
-        columns.push({
-            field: "Email",
-            headerName: "Email",
-            flex: 1,
-            renderCell: ({ row }) => (
-                <Typography component="div" variant="body1">
-                    {row?.donor?.email}
-                </Typography>
-            )
-        });
-
-        columns.push({
-            field: "Location",
-            headerName: "Location",
-            flex: 1,
-            renderCell: ({ row }) => (
-                <Typography component="div" variant="body1">
-                    {row?.donor?.location}
-                </Typography>
-            )
-        });
-    }
 
     return (
         <Box>
