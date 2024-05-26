@@ -40,4 +40,7 @@ export const DonateBlood = ["YES", "NO"];
 
 export const DonorStatus = ["APPROVED", "REJECTED"];
 
+export const UserRoleSelect = ["ADMIN", "USER"];
+export const UserAccountStatusSelected = ["ACTIVATE", "DEACTIVATE"];
+
 export const BloodType = ["A_POSITIVE", "A_NEGATIVE", "B_POSITIVE", "B_NEGATIVE", "AB_POSITIVE", "AB_NEGATIVE", "O_POSITIVE", "O_NEGATIVE"];

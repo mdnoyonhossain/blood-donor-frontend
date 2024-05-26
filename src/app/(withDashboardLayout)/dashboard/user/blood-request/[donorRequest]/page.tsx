@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetMYProfileQuery } from "@/redux/api/myProfile";
 import { useCreateDonorRequestMutation } from "@/redux/api/donationApi";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type TParams = {
     params: {
@@ -34,6 +35,7 @@ export const defaultValue = {
 const BloodRequest = ({ params }: TParams) => {
     const { data: myProfileData, isLoading } = useGetMYProfileQuery({});
     const [createDonorRequest] = useCreateDonorRequestMutation();
+    const router = useRouter();
     
     if (isLoading) {
         return <Typography variant="h1" textAlign="center">Loading...</Typography>
@@ -44,6 +46,7 @@ const BloodRequest = ({ params }: TParams) => {
         const res = await createDonorRequest(values);
         if ("data" in res && res?.data?.id) {
             toast.success("Blood Donor Request Successfully!");
+            router.push('/dashboard/user/blood-request-list');
         }
     }
 

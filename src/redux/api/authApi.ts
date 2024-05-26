@@ -19,11 +19,28 @@ export const authApi = baseApi.injectEndpoints({
                 data: data,
             }),
             invalidatesTags: [tagTypes.user],
-        })
+        }),
+        getAllUser: build.query({
+            query: () => ({
+                url: `/all-user`,
+                method: 'GET',
+            }),
+            providesTags: [tagTypes.user],
+        }),
+        updateUserStatus: build.mutation({
+            query: (data) => ({
+                url: `/update-user-staus/${data.id}`,
+                method: "PUT",
+                data: data
+            }),
+            invalidatesTags: [tagTypes.user]
+        }),
     }),
 });
 
 export const {
     useUserLoginMutation,
-    useChangePasswordMutation
+    useChangePasswordMutation,
+    useGetAllUserQuery,
+    useUpdateUserStatusMutation
 } = authApi;

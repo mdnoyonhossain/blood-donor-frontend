@@ -16,6 +16,7 @@ const assets = {
     defaultDoctorImage: require("./doctor-image1.png"),
     bloodHero : require("./blood-hero.jpg"),
     aboutDonner : require("./about-donner.jpg"),
+    bloodLogo: require("./logo.svg")
   },
   svgs: {
     logo: require("./svgs/logo.svg"),

@@ -12,7 +12,7 @@ export const donationApi = baseApi.injectEndpoints({
                     params: arg,
                 };
             },
-            providesTags: [tagTypes.user],
+            providesTags: [tagTypes.donor],
         }),
         getIdByDonor: build.query({
             query: (id: string) => {
@@ -21,7 +21,7 @@ export const donationApi = baseApi.injectEndpoints({
                     method: 'GET',
                 };
             },
-            providesTags: [tagTypes.user],
+            providesTags: [tagTypes.donor],
         }),
         createDonorRequest: build.mutation({
             query: (data) => ({
@@ -29,7 +29,7 @@ export const donationApi = baseApi.injectEndpoints({
                 method: 'POST',
                 data,
             }),
-            invalidatesTags: [tagTypes.doctorSchedule],
+            invalidatesTags: [tagTypes.donor],
         }),
         getMyRequestDonor: build.query({
             query: () => {
@@ -46,7 +46,7 @@ export const donationApi = baseApi.injectEndpoints({
                 method: "PUT",
                 data: data
             }),
-            invalidatesTags: [tagTypes.doctor, tagTypes.user]
+            invalidatesTags: [tagTypes.donor]
         }),
     }),
 });

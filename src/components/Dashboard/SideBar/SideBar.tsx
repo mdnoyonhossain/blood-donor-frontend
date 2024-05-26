@@ -18,12 +18,8 @@ const SideBar = () => {
 
     return (
         <Box>
-            <Stack direction="row" alignItems="center" justifyContent="center" gap={1} sx={{ py: 1, mt: 1 }} component={Link} href="/">
-                <Image src={assets.svgs.logo} width={40} height={40} alt="logo" />
-                {/* <Typography variant="h6" component="h1">PH Health Care</Typography> */}
-                <Typography variant="h6" component="h1" fontWeight={600}>
-                    P<Box component="span" color="primary.main">H</Box> Health Care
-                </Typography>
+            <Stack direction="row"  gap={1} sx={{ py: 1, mt: 1 }} component={Link} href="/">
+                <Image src={assets.images.bloodLogo} width={200} height={50} alt="logo" />
             </Stack>
             <List>
                 {drawerItems(userRole as UserRole).map((item, index) => (

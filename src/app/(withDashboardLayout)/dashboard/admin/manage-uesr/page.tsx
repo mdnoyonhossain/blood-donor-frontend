@@ -1,48 +1,56 @@
 "use client";
 import { Box, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useGetMyRequestDonorQuery } from "@/redux/api/donationApi";
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
-import { useRouter } from "next/navigation";
+import { useGetAllUserQuery } from "@/redux/api/authApi";
 
-const BloodRequestReceived = () => {
-    const { data: myDonorLists, isLoading } = useGetMyRequestDonorQuery({});
-    const router = useRouter()
+const ManageUser = () => {
+    const {data: allUsers, isLoading} = useGetAllUserQuery({});
 
-    if (isLoading) {
-        return <Typography variant="h1" textAlign="center">Loading...</Typography>
-        router.refresh()
+    if(isLoading){
+        return <h1>loading</h1>
     }
-    
+    console.log(allUsers);
+
     const columns: GridColDef[] = [
         {
-            field: "donor.name", // Change field to donor.name
-            headerName: "Donor Name",
+            field: "email", // Change field to donor.name
+            headerName: "Email",
             flex: 1,
             renderCell: ({ row }) => (
                 <Typography component="a" variant="body1" color="primary">
-                    {row?.donor?.name}
+                    {row?.email}
                 </Typography>
             ),
         },
         {
-            field: "donor.bloodType", // Change field to donor.name
-            headerName: "Blood Type",
+            field: "name", // Change field to donor.name
+            headerName: "Name",
             flex: 1,
             renderCell: ({ row }) => (
                 <Typography component="a" variant="body1" color="primary">
-                    {row?.donor?.bloodType}
+                    {row?.name}
                 </Typography>
             ),
         },
         {
-            field: "requestStatus", // Change field to donor.name
-            headerName: "Request Status",
+            field: "role", // Change field to donor.name
+            headerName: "User Role",
             flex: 1,
             renderCell: ({ row }) => (
                 <Typography component="a" variant="body1" color="info" sx={{ background: "#F4F7FE", padding: "10px 10px" }}>
-                    {row?.requestStatus}
+                    {row?.role}
+                </Typography>
+            ),
+        },
+        {
+            field: "userStatusChange", // Change field to donor.name
+            headerName: "User Status",
+            flex: 1,
+            renderCell: ({ row }) => (
+                <Typography component="a" variant="body1" color="info" sx={{ background: "#F4F7FE", padding: "10px 10px" }}>
+                    {row?.userStatusChange}
                 </Typography>
             ),
         },
@@ -55,7 +63,7 @@ const BloodRequestReceived = () => {
             renderCell: ({ row }) => {
                 return (
                     <Box>
-                        <Link href={`/dashboard/user/blood-request-received/editstatus/${row.id}`}>
+                        <Link href={`/dashboard/admin/manage-uesr/edit-user/${row.id}`}>
                             <IconButton aria-label="delete">
                                 <EditIcon />
                             </IconButton>
@@ -69,10 +77,10 @@ const BloodRequestReceived = () => {
     return (
         <Box>
             <Box my={2}>
-                <DataGrid rows={myDonorLists} columns={columns} />
+                <DataGrid rows={allUsers} columns={columns} />
             </Box>
         </Box>
     );
 };
 
-export default BloodRequestReceived;
+export default ManageUser;

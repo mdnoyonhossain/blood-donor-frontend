@@ -30,7 +30,7 @@ function Copyright() {
 
 const Footer = () => {
     return (
-        <Box sx={{ background: '#cccccc', color: 'white' }}>
+        <Box sx={{ background: 'rgb(116, 109, 188)', color: 'white' }}>
             <Container
                 sx={{
                     display: 'flex',
