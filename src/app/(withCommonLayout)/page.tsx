@@ -8,7 +8,7 @@ const HomePage = () => {
     <>
       <HeroSection />
       <AboutUs />
-      <SearchBloodDonor />
+      {/* <SearchBloodDonor /> */}
       <Testimonials />
     </>
   );

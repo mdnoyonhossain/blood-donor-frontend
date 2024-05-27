@@ -38,7 +38,7 @@ export const donationApi = baseApi.injectEndpoints({
                     method: 'GET'
                 };
             },
-            providesTags: [tagTypes.user],
+            providesTags: [tagTypes.donor],
         }),
         updateDonorStatus: build.mutation({
             query: (data) => ({

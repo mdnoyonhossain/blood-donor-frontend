@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import assets from "@/assets";
+import Link from "next/link";
 
 const AboutUs = () => {
     return (
@@ -52,7 +53,7 @@ const AboutUs = () => {
                             Which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when untrammelled and when nothing prevents
                         </Typography>
                         <Box sx={{ display: "flex", gap: 2 }}>
-                            <Button variant="outlined">About Us</Button>
+                            <Button LinkComponent={Link} href="/about-us" variant="outlined">About Us</Button>
                         </Box>
                     </Box>
                 </Grid>

@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import assets from "@/assets";
+import Link from "next/link";
 
 const HeroSection = () => {
 
@@ -32,8 +33,7 @@ const HeroSection = () => {
                             You can give blood at any of our blood donation venues. We have several donor center and visit other vanues on various occassions
                         </Typography>
                         <Box sx={{ display: "flex", gap: 2 }}>
-                            <Button>Request appointment</Button>
-                            <Button variant="outlined">Contact us</Button>
+                            <Button LinkComponent={Link} href="/donor-list">Search Donors</Button>
                         </Box>
                     </Box>
                 </Grid>

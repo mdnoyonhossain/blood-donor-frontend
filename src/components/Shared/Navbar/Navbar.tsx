@@ -16,6 +16,7 @@ import Image from 'next/image';
 import { getUserInfo } from '@/services/auth.services';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import assets from '@/assets';
 
 const logoStyle = {
     width: '140px',
@@ -99,9 +100,7 @@ const Navbar = () => {
                             }}
                         >
                             <Image
-                                src={
-                                    'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
-                                }
+                                src={assets.images.bloodLogo}
                                 width={50}
                                 height={50}
                                 style={logoStyle}
@@ -115,7 +114,7 @@ const Navbar = () => {
                                     <Link href="/donor-list"><Typography variant="body2" color="text.primary">Donor List</Typography></Link>
                                 </MenuItem>
                                 <MenuItem>
-                                    <Typography variant="body2" color="text.primary">About Us</Typography>
+                                    <Link href="/about-us"><Typography variant="body2" color="text.primary">About Us</Typography></Link>
                                 </MenuItem>
                             </Box>
                         </Box>
