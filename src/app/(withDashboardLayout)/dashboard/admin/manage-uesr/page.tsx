@@ -6,12 +6,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useGetAllUserQuery } from "@/redux/api/authApi";
 
 const ManageUser = () => {
-    const {data: allUsers, isLoading} = useGetAllUserQuery({});
+    const { data: allUsers, isLoading } = useGetAllUserQuery({});
 
-    if(isLoading){
+    if (isLoading) {
         return <h1>loading</h1>
     }
-    console.log(allUsers);
 
     const columns: GridColDef[] = [
         {
