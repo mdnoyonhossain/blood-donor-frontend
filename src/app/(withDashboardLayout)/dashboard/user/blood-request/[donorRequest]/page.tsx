@@ -1,10 +1,6 @@
 "use client"
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import { FieldValues } from "react-hook-form";
-import PHForm from "@/components/Forms/PHForm";
-import PHInput from "@/components/Forms/PHInput";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Button, Grid, Stack, Typography, TextField } from "@mui/material";
+import { FieldValues, useForm } from "react-hook-form";
 import { useGetMYProfileQuery } from "@/redux/api/myProfile";
 import { useCreateDonorRequestMutation } from "@/redux/api/donationApi";
 import { toast } from "sonner";
@@ -16,23 +12,8 @@ type TParams = {
     }
 }
 
-export const validationSchema = z.object({
-    phoneNumber: z.string().min(11, "Must be 11 characters"),
-    hospitalName: z.string({ required_error: "Please enter your hospital name!" }),
-    hospitalAddress: z.string({ required_error: "Please enter a hospital address!" }),
-    reason: z.string({ required_error: "Please enter your reason!" }),
-    dateOfDonation: z.string({ required_error: "Please enter the date of donation!" }),
-});
-
-export const defaultValueInfo: Record<string, any> = {
-    phoneNumber: "",
-    hospitalName: "",
-    hospitalAddress: "",
-    reason: "",
-    dateOfDonation: ""
-}
-
 const BloodRequest = ({ params }: TParams) => {
+    const { handleSubmit, register } = useForm();
     const { data: myProfileData, isLoading } = useGetMYProfileQuery({});
     const [createDonorRequest] = useCreateDonorRequestMutation();
     const router = useRouter();
@@ -59,26 +40,72 @@ const BloodRequest = ({ params }: TParams) => {
                     </Box>
                 </Stack>
                 <Box>
-                    <PHForm onSubmit={handleBloodRequest} resolver={zodResolver(validationSchema)} defaultValues={defaultValueInfo}>
+                    <form onSubmit={handleSubmit(handleBloodRequest)} >
                         <Grid container spacing={2} my={1}>
                             <Grid item md={6}>
-                                <PHInput type="number" name="phoneNumber" label="Phone Number" fullWidth={true} />
+                                <TextField
+                                    {...register('phoneNumber')}
+                                    fullWidth
+                                    type="number"
+                                    size="small"
+                                    required
+                                    label="Phone Number"
+                                    variant="outlined"
+                                    placeholder="Phone Number"
+                                />
                             </Grid>
                             <Grid item md={6}>
-                                <PHInput name="hospitalName" label="Hospital Name" fullWidth={true} />
+                                {/* <PHInput name="hospitalName" label="Hospital Name" fullWidth={true} /> */}
+                                <TextField
+                                    {...register('hospitalName')}
+                                    fullWidth
+                                    size="small"
+                                    required
+                                    label="Hospital Name"
+                                    variant="outlined"
+                                    placeholder="Hospital Name"
+                                />
                             </Grid>
                             <Grid item md={6}>
-                                <PHInput name="hospitalAddress" label="Hospital Address" fullWidth={true} />
+                                {/* <PHInput name="hospitalAddress" label="Hospital Address" fullWidth={true} /> */}
+                                <TextField
+                                    {...register('hospitalAddress')}
+                                    fullWidth
+                                    size="small"
+                                    required
+                                    label="Hospital Address"
+                                    variant="outlined"
+                                    placeholder="Hospital Address"
+                                />
                             </Grid>
                             <Grid item md={6}>
-                                <PHInput name="reason" label="Reason" fullWidth={true} />
+                                {/* <PHInput name="reason" label="Reason" fullWidth={true} /> */}
+                                <TextField
+                                    {...register('reason')}
+                                    fullWidth
+                                    size="small"
+                                    label="Reason"
+                                    required
+                                    variant="outlined"
+                                    placeholder="Reason"
+                                />
                             </Grid>
                             <Grid item md={6}>
-                                <PHInput type="date" name="dateOfDonation" label="Date Of Donation" fullWidth={true} />
+                                {/* <PHInput type="date" name="dateOfDonation" label="Date Of Donation" fullWidth={true} /> */}
+                                <TextField
+                                    {...register('dateOfDonation')}
+                                    fullWidth
+                                    type="date"
+                                    size="small"
+                                    required
+                                    label="Date Of Donation"
+                                    variant="outlined"
+                                    placeholder="Date Of Donation"
+                                />
                             </Grid>
                         </Grid>
                         <Button type="submit" fullWidth sx={{ margin: "20px 0 15px 0" }}>Send Blood Request</Button>
-                    </PHForm>
+                    </form>
                 </Box>
             </Box>
         </Stack>

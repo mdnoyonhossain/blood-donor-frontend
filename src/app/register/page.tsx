@@ -1,41 +1,17 @@
 "use client"
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, MenuItem, Stack, Typography, TextField } from "@mui/material";
 import assets from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
-import { FieldValues } from "react-hook-form";
-import { modifyPayload } from "@/utils/modifyPayload";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { userLogin } from "@/services/actions/userLogin";
-import { storeUserInfo } from "@/services/auth.services";
-import PHForm from "@/components/Forms/PHForm";
-import PHInput from "@/components/Forms/PHInput";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import PHSelectField from "@/components/Forms/PHSelectField";
 import { BloodType, DonateBlood } from "@/types";
 import { registerUser } from "@/services/actions/registerUser";
 
-export const validationSchema = z.object({
-    password: z.string().min(6, "Must be at least 6 characters"),
-    name: z.string().min(1, "Please enter your name!"),
-    email: z.string().email("Please enter a valid email address!"),
-    location: z.string().min(1, "Please enter your Location!"),
-    bloodType: z.string(),
-    donateBlood: z.string(),
-});
-
-export const defaultValue = {
-    password: "",
-    name: "",
-    email: "",
-    location: "",
-    bloodType: "",
-    donateBlood: ""
-}
 
 const RegisterPage = () => {
+    const { register, handleSubmit } = useForm()
     const router = useRouter();
 
     const handleRegister = async (values: FieldValues) => {
@@ -68,44 +44,90 @@ const RegisterPage = () => {
                         </Box>
                     </Stack>
                     <Box>
-                        <PHForm onSubmit={handleRegister} resolver={zodResolver(validationSchema)} defaultValues={defaultValue}>
+                        <form onSubmit={handleSubmit(handleRegister)}>
                             <Grid container spacing={2} my={1}>
                                 <Grid item md={6}>
-                                    <PHInput name="name" label="User Name" fullWidth={true} />
+                                    <TextField
+                                        {...register('name')}
+                                        fullWidth
+                                        required
+                                        size="small"
+                                        label="User Name"
+                                        variant="outlined"
+                                        placeholder="User Name"
+                                    />
                                 </Grid>
                                 <Grid item md={6}>
-                                    <PHInput type="email" name="email" label="Email" fullWidth={true} />
+                                    <TextField
+                                        {...register('email')}
+                                        fullWidth
+                                        required
+                                        size="small"
+                                        label="Email"
+                                        variant="outlined"
+                                        placeholder="Email"
+                                    />
                                 </Grid>
                                 <Grid item md={6}>
-                                    <PHInput type="password" name="password" label="Password" fullWidth={true} />
+                                    <TextField
+                                        {...register('password')}
+                                        fullWidth
+                                        type="password"
+                                        required
+                                        size="small"
+                                        label="Password"
+                                        variant="outlined"
+                                        placeholder="Password"
+                                    />
                                 </Grid>
                                 <Grid item md={6}>
-                                    <PHSelectField
-                                        items={BloodType}
-                                        name='bloodType'
+                                    <TextField
+                                        {...register("bloodType")}
+                                        size="small"
+                                        select
                                         label='Blood Type'
-                                        sx={{ textAlign: 'start' }}
+                                        required
+                                        fullWidth
+                                    >
+                                        {BloodType.map((name) => (
+                                            <MenuItem key={name} value={name}>
+                                                {name}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+
+                                </Grid>
+                                <Grid item md={6}>
+                                    <TextField
+                                        {...register('location')}
                                         fullWidth
                                         required
+                                        size="small"
+                                        label="Location"
+                                        variant="outlined"
+                                        placeholder="Location"
                                     />
                                 </Grid>
                                 <Grid item md={6}>
-                                    <PHInput name="location" label="Location" fullWidth={true} />
-                                </Grid>
-                                <Grid item md={6}>
-                                    <PHSelectField
-                                        items={DonateBlood}
-                                        name='donateBlood'
+                                    <TextField
+                                        {...register("donateBlood")}
+                                        size="small"
+                                        select
                                         label='Donate Blood'
-                                        sx={{ textAlign: 'start' }}
                                         fullWidth
-                                        required
-                                    />
+                                    >
+                                        {DonateBlood.map((name) => (
+                                            <MenuItem key={name} value={name}>
+                                                {name}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+
                                 </Grid>
                             </Grid>
                             <Button type="submit" fullWidth sx={{ margin: "20px 0 15px 0" }}>Register</Button>
                             <Typography component="p" fontWeight={300}>Do you already have an account? <Link href="/login">Login</Link></Typography>
-                        </PHForm>
+                        </form>
                     </Box>
                 </Box>
             </Stack>

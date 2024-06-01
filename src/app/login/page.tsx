@@ -1,32 +1,25 @@
 "use client";
 import assets from "@/assets";
-import PHForm from "@/components/Forms/PHForm";
-import PHInput from "@/components/Forms/PHInput";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Stack, Typography, TextField } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FieldValues } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 
-export const validationSchema = z.object({
-    email: z.string().email("Please enter a valid email address!"),
-    password: z.string().min(6, "Must be at least 6 characters")
-});
 
 const LoginPage = () => {
+    const { register, handleSubmit } = useForm()
     const router = useRouter();
     const [error, setError] = useState("");
 
     const handleLogin = async (values: FieldValues) => {
         try {
             const res = await userLogin(values);
-            
+
             if (res?.data?.token) {
                 toast.success(res?.message);
                 storeUserInfo({ accessToken: res?.data?.token });
@@ -64,18 +57,36 @@ const LoginPage = () => {
                         </Typography>
                     </Box>}
                     <Box>
-                        <PHForm onSubmit={handleLogin} resolver={zodResolver(validationSchema)} defaultValues={{ email: "", password: "" }}>
+                        <form onSubmit={handleSubmit(handleLogin)}>
                             <Grid container spacing={2} my={1}>
                                 <Grid item md={6}>
-                                    <PHInput type="email" name="email" label="Email" fullWidth={true} />
+                                    <TextField
+                                        {...register('email')}
+                                        fullWidth
+                                        type="email"
+                                        required
+                                        size="small"
+                                        label="Email"
+                                        variant="outlined"
+                                        placeholder="Email"
+                                    />
                                 </Grid>
                                 <Grid item md={6}>
-                                    <PHInput type="password" name="password" label="Password" fullWidth={true} />
+                                    <TextField
+                                        {...register('password')}
+                                        fullWidth
+                                        type="password"
+                                        required
+                                        size="small"
+                                        label="Password"
+                                        variant="outlined"
+                                        placeholder="Password"
+                                    />
                                 </Grid>
                             </Grid>
                             <Button type="submit" fullWidth sx={{ margin: "20px 0 15px 0" }}>Login</Button>
                             <Typography component="p" fontWeight={300}>Don&apos;t have an account? <Link href="/register">Create an account</Link></Typography>
-                        </PHForm>
+                        </form>
                     </Box>
                 </Box>
             </Stack>
