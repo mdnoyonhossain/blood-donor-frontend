@@ -31,7 +31,7 @@ export const authApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: `/update-user-staus/${data.id}`,
                 method: "PUT",
-                data: data
+                data
             }),
             invalidatesTags: [tagTypes.user]
         }),
