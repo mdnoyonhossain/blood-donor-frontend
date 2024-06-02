@@ -19,7 +19,7 @@ const EditUser = ({ params }: TParams) => {
 
     const handleEditUser = async (values: FieldValues) => {
         console.log({ id: params.userId, data: { role: values.role, userStatusChange: values.userStatusChange } });
-        const res = await updateUserStatus({ id: params.userId, data: { role: values.role, userStatusChange: values.userStatusChange } });
+        const res = await updateUserStatus({ id: params.userId, data:{ role: values.role, userStatusChange: values.userStatusChange } });
 
         if ("data" in res && res?.data?.id) {
             toast.success("User Status Updated");
