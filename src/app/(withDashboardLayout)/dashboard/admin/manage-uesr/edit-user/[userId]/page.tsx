@@ -18,8 +18,7 @@ const EditUser = ({ params }: TParams) => {
     const router = useRouter();
 
     const handleEditUser = async (values: FieldValues) => {
-        console.log({ id: params.userId, data: { role: values.role, userStatusChange: values.userStatusChange } });
-        const res = await updateUserStatus({ id: params.userId, data: { role: values.role, userStatusChange: values.userStatusChange } });
+        const res = await updateUserStatus({ id: params.userId, values });
 
         if ("data" in res && res?.data?.id) {
             toast.success("User Status Updated");
@@ -58,11 +57,12 @@ const EditUser = ({ params }: TParams) => {
                             {...register("role")}
                             size="small"
                             select
+                            required
                             label="Role"
                             fullWidth
                         >
                             {UserRoleSelect.map((name) => (
-                                <MenuItem key={name} value={name.toLocaleLowerCase()}>
+                                <MenuItem key={name} value={name}>
                                     {name}
                                 </MenuItem>
                             ))}
@@ -73,11 +73,12 @@ const EditUser = ({ params }: TParams) => {
                             {...register("userStatusChange")}
                             size="small"
                             select
+                            required
                             label="User Status Change"
                             fullWidth
                         >
                             {UserAccountStatusSelected.map((name) => (
-                                <MenuItem key={name} value={name.toLocaleLowerCase()}>
+                                <MenuItem key={name} value={name}>
                                     {name}
                                 </MenuItem>
                             ))}
