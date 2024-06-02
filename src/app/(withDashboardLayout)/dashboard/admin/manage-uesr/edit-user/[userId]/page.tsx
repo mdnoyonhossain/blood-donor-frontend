@@ -1,6 +1,6 @@
 "use client";
 import { useUpdateUserStatusMutation } from "@/redux/api/authApi";
-import { DonorStatus, UserAccountStatusSelected, UserRoleSelect } from "@/types";
+import { UserAccountStatusSelected, UserRoleSelect } from "@/types";
 import { Box, Button, Grid, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
@@ -19,7 +19,7 @@ const EditUser = ({ params }: TParams) => {
 
     const handleEditUser = async (values: FieldValues) => {
         const res = await updateUserStatus({ id: params.userId, data: values });
-        
+
         if ("data" in res && res?.data?.id) {
             toast.success("User Status Updated");
             router.push("/dashboard/admin/manage-uesr");

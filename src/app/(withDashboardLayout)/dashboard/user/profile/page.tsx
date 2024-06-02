@@ -1,6 +1,6 @@
 "use client";
-import { useGetMYProfileQuery, useUpdateMyProfileMutation } from "@/redux/api/myProfile";
-import { Box, Button, Container, styled } from "@mui/material";
+import { useGetMYProfileQuery } from "@/redux/api/myProfile";
+import { Button, Container } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import DoctorInformations from "./components/DoctorInformations";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Profile = () => {
     const { data, isLoading } = useGetMYProfileQuery(undefined);
-    
+
     if (isLoading) {
         return <p>Loading...</p>
     }
